@@ -6,7 +6,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="description" content="">
       <meta name="author" content="">
-      <title>Meilisearch Demoing</title>
+      <title>A demo in your Meilisearch</title>
       <link rel="stylesheet" href="assets/css/style.css">
       <script>
         function index_that() {
@@ -21,7 +21,7 @@
 
             const base_url = document.getElementById('url').value;
             const http = new XMLHttpRequest();
-            const url = `${base_url}/indexes/movies/documents`;
+            const url = `${base_url}/indexes/movies-demo/documents`;
             http.open("POST", url);
             http.setRequestHeader('Content-type', 'application/json');
             http.send(content);
@@ -58,17 +58,29 @@
         </header>
 
         <section>
-         <h1>Meilisearch Demoing</h1>
-         <h3>Index an example movies dataset into your Meilisearch instance</h3>
-         <p>Specify the URL of your <i>Meilisearch</i> instance. Your <i>Meilisearch</i> instance must be reachable by your browser.</p>
+          <h1>A demo in your Meilisearch</h1>
+          <p>Would you like to test your own Meilisearch instance in only one click?</p>
 
-         <input
+          <img src="art/trumen-fast.gif" alt="A demo of the movies dataset in Meilisearch"/>
+          <p></p>
+
+          <h2>Index an example <i>movies dataset</i> into your Meilisearch instance</h2>
+          <p>Specify the URL of your <i>Meilisearch</i> instance. Your <i>Meilisearch</i> instance must be reachable by your browser.</p>
+
+          <input
             type="text"
             id="url"
             placeholder="The URL to reach your Meilisearch instance"
             value="http://localhost:7700"
             >
-         <button onclick="index_that()">Index that!</button>
+          <button onclick="index_that()">Index that!</button>
+
+          <p></p>
+
+          <h2>Now you can try your brand new <i>movies</i> index in Meilisearch</h2>
+          <p>Go to you Meilisearch instance and reload the page, a new <i>movies-demo</i> index should be visible.
+          The documents should be available after something like <i>2s</i> to <i>10s</i> depending on your machine.</p>
+
         </section>
       </div>
    </body>
