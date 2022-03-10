@@ -1,14 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Meilisearch Demoing</title>
-    <link rel="stylesheet" href="style.css">
-  </head>
-  <body>
-  </body>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>Meilisearch Demoing</title>
+      <link rel="stylesheet" href="assets/css/style.css">
+      <script>
+         function index_that() {
+           const movies_url = "/movies.json";
+           const download_http = new XMLHttpRequest();
+           download_http.open("GET", movies_url);
+           download_http.send();
+           download_http.onreadystatechange = (e) => {
+                 // The download of the dataset is finished
+                 const content = download_http.response;
+                 console.log(e);
+
+                 const base_url = document.getElementById('url').value;
+                 const http = new XMLHttpRequest();
+                 const url = `${base_url}/indexes/movies/documents`;
+                 http.open("POST", url);
+                 http.setRequestHeader('Content-type', 'application/json');
+                 http.send(content);
+                 http.onreadystatechange = (e) => {
+                   console.log(http.responseText);
+                 }
+               }
+             }
+
+      </script>
+   </head>
+   <body>
+      <div class="wrapper">
+        <header>
+          <a href="https://meilisearch.com">
+            <img src="/art/logo-mark.png" alt="Meilisearch Logo" width="40%" height="auto">
+          </a>
+          <p></p>
+
+          <br>
+          <b>Meilisearch</b>
+          <br>
+          <a href="https://meilisearch.com/">website</a>
+          <br>
+          <a href="https://github.com/meilisearch/meilisearch">github repository</a>
+          <br>
+          <a href="https://docs.meilisearch.com/learn/getting_started/quick_start.html">introduction</a>
+          <br>
+          <a href="https://docs.meilisearch.com/">documentation</a>
+          <br>
+          <a href="https://blog.meilisearch.com/">blog</a>
+          <br>
+          <br>
+        </header>
+
+        <section>
+         <h1>Meilisearch Demoing</h1>
+         <h3>Index an example movies dataset into your Meilisearch instance</h3>
+         <p>Specify the URL of your <i>Meilisearch</i> instance. Your <i>Meilisearch</i> instance must be reachable by your browser.</p>
+
+         <input
+            type="text"
+            id="url"
+            placeholder="The URL to reach your Meilisearch instance"
+            value="http://localhost:7700"
+            >
+         <button onclick="index_that()">Index that!</button>
+        </section>
+      </div>
+   </body>
 </html>
+
