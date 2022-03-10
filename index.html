@@ -23,6 +23,9 @@
 
     <script>
       function index_that() {
+        document.getElementById('request-succeeded').style.display = 'none';
+        document.getElementById('request-failed').style.display = 'none';
+
         const movies_url = "movies.json";
         const download_http = new XMLHttpRequest();
         download_http.open("GET", movies_url);
@@ -33,6 +36,7 @@
           console.log(e);
 
           const base_url = document.getElementById('url').value;
+          const api_key = document.getElementById('api-key').value;
           // Change the href of the meilisearch link
           document.getElementById('meilisearch-url').href = base_url;
 
@@ -40,12 +44,19 @@
           const url = `${base_url}/indexes/movies-demo/documents`;
           http.open("POST", url);
           http.setRequestHeader('Content-type', 'application/json');
+          if (api_key !== "") {
+            http.setRequestHeader('Authorization', `Bearer ${api_key}`);
+          }
+
           http.send(content);
           http.onload = (e) => {
-            console.log(http.responseText);
             if (http.status == 202) {
-              document.getElementById('request-sent').style.visibility = 'visible';
+              console.log(http.responseText);
+              document.getElementById('request-succeeded').style.display = 'initial';
             }
+          }
+          http.onerror = (e) => {
+            document.getElementById('request-failed').style.display = 'initial';
           }
         }
       }
@@ -91,9 +102,16 @@
             id="url"
             placeholder="The URL to reach your Meilisearch instance"
             value="http://localhost:7700"
-            >
-          <button onclick="index_that()">Index that!</button>
-          <span id="request-sent" style="visibility: hidden;">✅</span>
+          >
+          <input
+            type="password"
+            id="api-key"
+            placeholder="optional: the API key"
+          >
+          <br>
+          <button style="margin-top: 5px" onclick="index_that()">Index that!</button>
+          <span id="request-succeeded" style="display: none;">✅</span>
+          <span id="request-failed" style="display: none;">❌</span>
 
           <p></p>
 
