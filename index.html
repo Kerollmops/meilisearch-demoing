@@ -9,35 +9,34 @@
       <title>Meilisearch Demoing</title>
       <link rel="stylesheet" href="assets/css/style.css">
       <script>
-         function index_that() {
-           const movies_url = "/movies.json";
-           const download_http = new XMLHttpRequest();
-           download_http.open("GET", movies_url);
-           download_http.send();
-           download_http.onreadystatechange = (e) => {
-                 // The download of the dataset is finished
-                 const content = download_http.response;
-                 console.log(e);
+        function index_that() {
+          const movies_url = "movies.json";
+          const download_http = new XMLHttpRequest();
+          download_http.open("GET", movies_url);
+          download_http.send();
+          download_http.onreadystatechange = (e) => {
+            // The download of the dataset is finished
+            const content = download_http.response;
+            console.log(e);
 
-                 const base_url = document.getElementById('url').value;
-                 const http = new XMLHttpRequest();
-                 const url = `${base_url}/indexes/movies/documents`;
-                 http.open("POST", url);
-                 http.setRequestHeader('Content-type', 'application/json');
-                 http.send(content);
-                 http.onreadystatechange = (e) => {
-                   console.log(http.responseText);
-                 }
-               }
-             }
-
+            const base_url = document.getElementById('url').value;
+            const http = new XMLHttpRequest();
+            const url = `${base_url}/indexes/movies/documents`;
+            http.open("POST", url);
+            http.setRequestHeader('Content-type', 'application/json');
+            http.send(content);
+            http.onreadystatechange = (e) => {
+             console.log(http.responseText);
+            }
+          }
+        }
       </script>
    </head>
    <body>
       <div class="wrapper">
         <header>
           <a href="https://meilisearch.com">
-            <img src="/art/logo-mark.png" alt="Meilisearch Logo" width="40%" height="auto">
+            <img src="art/logo-mark.png" alt="Meilisearch Logo" width="40%" height="auto">
           </a>
           <p></p>
 
