@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <title>A demo in your Meilisearch</title>
-      <link rel="stylesheet" href="assets/css/style.css">
-      <script>
-        function index_that() {
-          const movies_url = "movies.json";
-          const download_http = new XMLHttpRequest();
-          download_http.open("GET", movies_url);
-          download_http.send();
-          download_http.onreadystatechange = (e) => {
-            // The download of the dataset is finished
-            const content = download_http.response;
-            console.log(e);
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A site to index a demo dataset into your Meilisearch instance">
+    <meta name="author" content="Kerollmops">
 
-            const base_url = document.getElementById('url').value;
-            const http = new XMLHttpRequest();
-            const url = `${base_url}/indexes/movies-demo/documents`;
-            http.open("POST", url);
-            http.setRequestHeader('Content-type', 'application/json');
-            http.send(content);
-            http.onreadystatechange = (e) => {
-             console.log(http.responseText);
-            }
+    <title>A demo in your Meilisearch</title>
+    <meta property="og:title" content="sled">
+    <meta property="og:locale" content="en_US">
+    <link rel="canonical" href="https://kerollmops.github.io/meilisearch-demoing/">
+    <meta property="og:url" content="https://kerollmops.github.io/meilisearch-demoing/">
+    <meta property="og:site_name" content="kerollmops.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta property="twitter:title" content="sled">
+    <script type="application/ld+json">
+    {"headline":"sled","url":"http://sled.rs/","@type":"WebSite","name":"sled-rs.github.io","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://sled.rs/art/tree_face.png"}},"@context":"https://schema.org"}</script>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+      function index_that() {
+        const movies_url = "movies.json";
+        const download_http = new XMLHttpRequest();
+        download_http.open("GET", movies_url);
+        download_http.send();
+        download_http.onload = (e) => {
+          // The download of the dataset is finished
+          const content = download_http.response;
+          console.log(e);
+
+          const base_url = document.getElementById('url').value;
+          const http = new XMLHttpRequest();
+          const url = `${base_url}/indexes/movies-demo/documents`;
+          http.open("POST", url);
+          http.setRequestHeader('Content-type', 'application/json');
+          http.send(content);
+          http.onload = (e) => {
+           console.log(http.responseText);
           }
         }
-      </script>
+      }
+    </script>
    </head>
 
    <body>
