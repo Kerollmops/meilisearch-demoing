@@ -33,13 +33,19 @@
           console.log(e);
 
           const base_url = document.getElementById('url').value;
+          // Change the href of the meilisearch link
+          document.getElementById('meilisearch-url').href = base_url;
+
           const http = new XMLHttpRequest();
           const url = `${base_url}/indexes/movies-demo/documents`;
           http.open("POST", url);
           http.setRequestHeader('Content-type', 'application/json');
           http.send(content);
           http.onload = (e) => {
-           console.log(http.responseText);
+            console.log(http.responseText);
+            if (http.status == 202) {
+              document.getElementById('request-sent').style.visibility = 'visible';
+            }
           }
         }
       }
@@ -87,13 +93,13 @@
             value="http://localhost:7700"
             >
           <button onclick="index_that()">Index that!</button>
+          <span id="request-sent" style="visibility: hidden;">✅</span>
 
           <p></p>
 
-          <h2>Now you can try your brand new <i>movies</i> index in Meilisearch</h2>
-          <p>Go to you Meilisearch instance and reload the page, a new <i>movies-demo</i> index should be visible.
+          <h2>Try out your brand new index in Meilisearch</h2>
+          <p>Go to <a id="meilisearch-url" href="http://localhost:7700">your Meilisearch instance</a> and reload the page, a new <i>movies-demo</i> index should be visible.
           The documents should be available after something like <i>2s</i> to <i>10s</i> depending on your machine.</p>
-
         </section>
       </div>
    </body>

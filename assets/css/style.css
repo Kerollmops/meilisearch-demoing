@@ -308,13 +308,12 @@ h3, h4, h5, h6 {
 }
 
 a {
-    color: #ff5caa;
+    color: #ff4e62;
     text-decoration: none
 }
 
 a:hover, a:focus {
-    color: #F758A4;
-    font-weight: bold
+    color: #cd3e4e;
 }
 
 a small {
